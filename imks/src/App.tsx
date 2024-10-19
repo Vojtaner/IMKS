@@ -1,13 +1,33 @@
 import { ThemeProvider } from "@mui/material";
 import { imksTheme } from "../theme/customeTheme";
+import { ChannelAccordion } from "../components/ChannelAccordion";
+import { ChannelButtonTopBar } from "../components/ChannelButtonTopBar";
+import { panelList } from "../api/mockdata";
+import { useState } from "react";
 
 function App() {
+  const [panels, setPanels] = useState(panelList);
+
+  const handleChange = (channelId: string) => {
+    setPanels((prevState) =>
+      prevState.map((panel) =>
+        panel.id === channelId ? { ...panel, expanded: !panel.expanded } : panel
+      )
+    );
+  };
+
   return (
     <ThemeProvider theme={imksTheme}>
-      {/* <ChannelAccordion>
-        {" "}
-        <p>Ahoj</p>
-      </ChannelAccordion> */}
+      {panels.map((panel) => {
+        return (
+          <ChannelAccordion
+            channelData={panel}
+            handleChangeExpnaded={handleChange}
+          >
+            <ChannelButtonTopBar />
+          </ChannelAccordion>
+        );
+      })}
 
       {/* {panels.map((panel) => {
         return <ImksAccordion />;
@@ -16,10 +36,3 @@ function App() {
   );
 }
 export default App;
-
-// tlačítka
-// import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-// import { Button } from "@mui/material";
-// import { Delete } from "@mui/icons-material";
-// <Button startIcon={<AddOutlinedIcon />}>Přidat bod </Button>
-// <Button startIcon={<Delete />}>Vymazat vše </Button>

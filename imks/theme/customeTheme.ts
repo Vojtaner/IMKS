@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { cyan, lime } from "@mui/material/colors";
+import { cyan } from "@mui/material/colors";
 
 export const imksTheme = createTheme({
   palette: {

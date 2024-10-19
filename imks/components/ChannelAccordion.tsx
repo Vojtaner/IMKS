@@ -6,22 +6,19 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ReactNode, useState } from "react";
-import { AccordionLightType, ChannelIcons, ChannelType } from "./entity";
-import React from "react";
+import {
+  AccordionLightType,
+  ChannelIcons,
+  ChannelType,
+} from "../entity/entity";
+import { EditableChip } from "../components/EditableChip";
 
-export const ChannelAccordion = (props: {
+export function ChannelAccordion(props: {
   channelData: AccordionLightType;
   children: ReactNode;
-}) => {
-  const { channelData, children } = props;
-
-  const handleChangeExpand = (panelId: string) => {
-    // setPanels((prevState) =>
-    //   prevState.map((panel) =>
-    //     panel.id === panelId ? { ...panel, expanded: !panel.expanded } : panel
-    //   )
-    // );
-  };
+  handleChangeExpnaded: (channelId: string) => void;
+}) {
+  const { channelData, children, handleChangeExpnaded } = props;
 
   return (
     <Accordion
@@ -29,7 +26,13 @@ export const ChannelAccordion = (props: {
       key={channelData.id}
       sx={{
         margin: "0px 0.2rem 1rem 0.2rem",
-        borderRadius: "10px",
+        borderRadius: "4px",
+        "& .MuiAccordionSummary-content.Mui-expanded": {
+          margin: "0px",
+        },
+        "& .MuiAccordionSummary-content": {
+          margin: "0px",
+        },
         "::before": {
           content: "none",
         },
@@ -39,19 +42,46 @@ export const ChannelAccordion = (props: {
         aria-controls={`${channelData.id} ${channelData.title}`}
         id={channelData.id}
         sx={{
+          position: "relative",
+          padding: "0.5rem 0rem",
+          marginTop: "2rem",
           "& .MuiAccordionSummary-content": {
             justifyContent: "space-between",
           },
+          "& .MuiAccordionSummary-content .MuiInputBase-input": {
+            height: "0px",
+
+            fontSize: "1rem",
+            color: imksTheme.palette.secondary.main,
+            textTransform: "uppercase",
+            fontWeight: "500",
+            "&::placeholder": {
+              opacity: 1,
+            },
+          },
+          "& .MuiAccordionSummary-content .MuiInputBase-input.Mui-disabled": {
+            "&::placeholder": {
+              "-webkit-text-fill-color": imksTheme.palette.secondary.main,
+            },
+          },
           "&.Mui-focusVisible": {
-            backgroundColor: "white", // Example style when focused
+            backgroundColor: "white",
           },
         }}
       >
-        <AccordionInput channelType={channelData.channelType} />
+        <EditableChip
+          channelIndex={channelData.channelIndex}
+          color={channelData.color}
+        />
+
+        <AccordionInput
+          channelType={channelData.channelType}
+          channelTitle={channelData.title}
+        />
         <IconButton
           sx={{ p: "10px" }}
           aria-label="expand-arrow"
-          onClick={() => handleChangeExpand(channelData.id)}
+          onClick={() => handleChangeExpnaded(channelData.id)}
         >
           <ExpandMoreIcon />
         </IconButton>
@@ -59,9 +89,13 @@ export const ChannelAccordion = (props: {
       <AccordionDetails>{children}</AccordionDetails>
     </Accordion>
   );
-};
+}
 
-const AccordionInput = (props: { channelType: ChannelType }) => {
+const AccordionInput = (props: {
+  channelType: ChannelType;
+  channelTitle: string;
+}) => {
+  const { channelTitle, channelType } = props;
   const [active, setActive] = useState(true);
 
   return (
@@ -77,22 +111,13 @@ const AccordionInput = (props: { channelType: ChannelType }) => {
       }}
     >
       <IconButton sx={{ p: "10px" }} aria-label="lightbulb" color="primary">
-        {ChannelIcons[props.channelType]}
+        {ChannelIcons[channelType]}
       </IconButton>
       <TextField
         disabled={active}
         focused={!active}
-        placeholder="ahoj"
+        defaultValue={channelTitle}
         sx={{
-          "& .MuiInputBase-input": {
-            fontSize: "2rem",
-            color: imksTheme.palette.secondary.main,
-            textTransform: "uppercase",
-            fontWeight: "500",
-            "&::placeholder": {
-              opacity: 1,
-            },
-          },
           "& .MuiInputBase-input.Mui-disabled": {
             "&::placeholder": {
               "-webkit-text-fill-color": imksTheme.palette.secondary.main,
@@ -102,8 +127,12 @@ const AccordionInput = (props: { channelType: ChannelType }) => {
             borderWidth: "0px",
             opacity: 1,
           },
+          "& .MuiOutlinedInput-input.Mui-disabled": {
+            "-webkit-text-fill-color": imksTheme.palette.secondary.main,
+          },
         }}
-      ></TextField>
+      />
+
       <IconButton
         color="primary"
         sx={{ p: "10px" }}

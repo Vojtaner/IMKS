@@ -1,7 +1,9 @@
 import { ThemeProvider } from "@mui/material";
 import { imksTheme } from "../theme/customeTheme";
-import { ChannelAccordion } from "../components/ChannelAccordion";
-import { ChannelButtonTopBar } from "../components/ChannelButtonTopBar";
+import { ChannelAccordion } from "../components/Channel/ChannelAccordion";
+import HeaderBarMenu from "../components/HeaderBarMenu";
+import LightChart from "../components/LightChart";
+import { LightPaperCard } from "../components/LightPaperCard";
 import { panelList } from "../api/mockdata";
 import { useState } from "react";
 
@@ -18,13 +20,19 @@ function App() {
 
   return (
     <ThemeProvider theme={imksTheme}>
+      <HeaderBarMenu />
+      <LightChart />
       {panels.map((panel) => {
         return (
           <ChannelAccordion
             channelData={panel}
             handleChangeExpnaded={handleChange}
+            key={panel.id}
           >
-            <ChannelButtonTopBar />
+            <ChannelAccordion.ButtoBar />
+            <LightPaperCard />
+            <LightPaperCard />
+            <LightPaperCard />
           </ChannelAccordion>
         );
       })}

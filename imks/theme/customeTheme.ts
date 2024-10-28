@@ -6,13 +6,16 @@ export const imksTheme = createTheme({
     primary: cyan,
     secondary: { main: "#b6cf55" },
   },
+
   components: {
     MuiButton: {
       defaultProps: {
-        variant: "outlined",
+        variant: "contained",
       },
       styleOverrides: {
         root: {
+          background: "white",
+          color: cyan[500],
           border: "1px dotted",
           ":hover": {
             color: "#fefefe",

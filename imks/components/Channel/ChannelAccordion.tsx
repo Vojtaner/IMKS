@@ -1,5 +1,5 @@
 import { IconButton, Paper, TextField } from "@mui/material";
-import { imksTheme } from "../theme/customeTheme";
+import { imksTheme } from "../../theme/customeTheme";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,8 +10,9 @@ import {
   AccordionLightType,
   ChannelIcons,
   ChannelType,
-} from "../entity/entity";
-import { EditableChip } from "../components/EditableChip";
+} from "../../entity/entity";
+import { EditableChip } from "./EditableChip";
+import { ButtonBar } from "./ButtonBar";
 
 export function ChannelAccordion(props: {
   channelData: AccordionLightType;
@@ -61,7 +62,7 @@ export function ChannelAccordion(props: {
           },
           "& .MuiAccordionSummary-content .MuiInputBase-input.Mui-disabled": {
             "&::placeholder": {
-              "-webkit-text-fill-color": imksTheme.palette.secondary.main,
+              WebkitTextFillColor: imksTheme.palette.secondary.main,
             },
           },
           "&.Mui-focusVisible": {
@@ -120,7 +121,7 @@ const AccordionInput = (props: {
         sx={{
           "& .MuiInputBase-input.Mui-disabled": {
             "&::placeholder": {
-              "-webkit-text-fill-color": imksTheme.palette.secondary.main,
+              WebkitTextFillColor: imksTheme.palette.secondary.main,
             },
           },
           "& .MuiOutlinedInput-notchedOutline": {
@@ -128,7 +129,7 @@ const AccordionInput = (props: {
             opacity: 1,
           },
           "& .MuiOutlinedInput-input.Mui-disabled": {
-            "-webkit-text-fill-color": imksTheme.palette.secondary.main,
+            WebkitTextFillColor: imksTheme.palette.secondary.main,
           },
         }}
       />
@@ -144,3 +145,5 @@ const AccordionInput = (props: {
     </Paper>
   );
 };
+
+ChannelAccordion.ButtoBar = ButtonBar;

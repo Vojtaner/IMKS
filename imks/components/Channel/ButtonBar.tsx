@@ -2,7 +2,7 @@ import { Stack, Button } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Delete } from "@mui/icons-material";
 
-export const ChannelButtonTopBar = () => {
+export const ButtonBar = () => {
   return (
     <Stack display={"flex"} justifyContent={"space-between"} direction={"row"}>
       <Button startIcon={<AddOutlinedIcon />}>Přidat bod </Button>

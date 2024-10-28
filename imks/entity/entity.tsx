@@ -1,10 +1,11 @@
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
+import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 export type ImksState = {
   settings: {
-    language: Languages;
-    channelColors: ChannelColorsType;
+    language: keyof LanguagesType;
+    channelColors: typeof ChanellColors;
   };
   channels: Record<number, ChannelForm>;
 };
@@ -16,7 +17,7 @@ export type ChannelForm = {
     title: string;
     expanded: boolean;
   };
-} & (LightFormType | FertilizeFormType);
+} & (LightFormType | FertilizeFormType | SelectActionTypeForm);
 
 type LightFormType = {
   channelActionType: ChannelActionType.Light;
@@ -35,12 +36,18 @@ type FertilizeFormType = {
   fertilizeCalendar: FertilizeCalendar;
 };
 
+type SelectActionTypeForm = {
+  channelActionType: ChannelActionType.NotSelected;
+};
+
 export type ChannelColorsType = (typeof ChanellColors)[number];
 
 export const enum ChannelActionType {
   Fertilize = "fertilize",
   Light = "light",
+  NotSelected = "notSelected",
 }
+
 type FertilizeCalendar = {
   monday: boolean;
   tuesday: boolean;
@@ -58,12 +65,15 @@ export const ChanellColors = [
   "default",
 ] as const;
 
-const enum Languages {
-  "cs-CZ/Čeština",
-  "en-US/English",
-}
+export type LanguagesType = typeof Languages;
+
+export const Languages = {
+  "cs-CZ": "Čeština",
+  "en-US": "English",
+} as const;
 
 export const ChannelIcons = {
   fertilize: <WaterDropIcon />,
   light: <EmojiObjectsIcon />,
+  notSelected: <QuestionMarkIcon />,
 };

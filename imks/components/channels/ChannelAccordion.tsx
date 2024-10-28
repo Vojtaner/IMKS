@@ -6,20 +6,35 @@ import { EditableChip } from "./channelHeader/EditableChip";
 import { ButtonBar } from "./channelButtonMenu/ButtonBar";
 import { AccordionHeaderInput } from "./channelHeader/AccordionHeaderInput";
 import { ExpandMoreButton } from "./channelHeader/ExpandMoreButton";
-import { LightSettingsList } from "./light/LightSettingsList";
-import { FertilizeSettingForm } from "./fertilize/FertilizeSettingForm";
-
+import { LightSettingsList } from "./channelBody/light/LightSettingsList";
+import { FertilizeSettingForm } from "./channelBody/fertilize/FertilizeSettingForm";
+import { ChannelActionTypeChoice } from "./channelBody/notSelected/ChannelActionTypeChoice";
+import { useAppSelector } from "../../store/storeRedux";
+import {
+  selectChannelActionType,
+  selectChannelExpanded,
+  selectChannelTitle,
+} from "../../store/selectors/channelSelectors";
+import { ChannelActionType } from "../../entity/entity";
 export function ChannelAccordion(props: { channelId: number }) {
   // vybrat channelActionType z reduxu a zvolit správnou komponentu do accordion detailu
   // vyrequestovat expanded z REDUXU
   // select title z reduxu
-  const x = true;
-  const expanded = false;
-  const title = "červená barva";
+  const channelActionType = useAppSelector((state) =>
+    selectChannelActionType(state, props.channelId)
+  );
+  const isExpanded = useAppSelector((state) =>
+    selectChannelExpanded(state, props.channelId)
+  );
+  const channelTitle = useAppSelector((state) =>
+    selectChannelTitle(state, props.channelId)
+  );
+
+  console.log({ channelActionType });
 
   return (
     <Accordion
-      expanded={expanded}
+      expanded={isExpanded}
       key={props.channelId}
       sx={{
         margin: "0px 0.2rem 1rem 0.2rem",
@@ -36,7 +51,7 @@ export function ChannelAccordion(props: { channelId: number }) {
       }}
     >
       <AccordionSummary
-        aria-controls={`${props.channelId} ${title}`}
+        aria-controls={`${props.channelId} ${channelTitle}`}
         id={`${props.channelId}`}
         sx={{
           position: "relative",
@@ -72,7 +87,18 @@ export function ChannelAccordion(props: { channelId: number }) {
       </AccordionSummary>
       <AccordionDetails>
         <ChannelAccordion.ButtoBar />
-        {x ? <LightSettingsList /> : <FertilizeSettingForm />}
+        {channelActionType === ChannelActionType.Light && (
+          <LightSettingsList
+            isExpanded={isExpanded}
+            channelId={props.channelId}
+          />
+        )}
+        {channelActionType === ChannelActionType.Fertilize && (
+          <FertilizeSettingForm />
+        )}
+        {channelActionType === ChannelActionType.NotSelected && (
+          <ChannelActionTypeChoice />
+        )}
       </AccordionDetails>
     </Accordion>
   );

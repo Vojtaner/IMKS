@@ -23,6 +23,7 @@ export const imksTheme = createTheme({
           },
           textTransform: "none",
           fontWeight: 300,
+          fontSize: "0.8rem",
         },
       },
     },

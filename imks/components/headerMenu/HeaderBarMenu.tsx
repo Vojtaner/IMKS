@@ -4,8 +4,13 @@ import Paper from "@mui/material/Paper/Paper";
 import logo from "../../assets/logo.webp";
 import LanguageIcon from "@mui/icons-material/Language";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import { useAppSelector } from "../../store/storeRedux";
+import { selectAppLanguage } from "../../store/selectors/settingsSelectors";
+import { Languages } from "../../entity/entity";
 
 const HeaderBarMenu = () => {
+  const language = useAppSelector(selectAppLanguage);
+
   return (
     <Paper
       elevation={1}
@@ -33,8 +38,7 @@ const HeaderBarMenu = () => {
           justifyContent="flex-end"
           sx={{ maxHeight: "2.5rem" }}
         >
-          <Button startIcon={<LanguageIcon />}>Jazyk</Button>
-
+          <Button startIcon={<LanguageIcon />}>{Languages[language]}</Button>
           <Button startIcon={<PictureAsPdfIcon />}>Návod ke stažení</Button>
         </Grid>
       </Grid>

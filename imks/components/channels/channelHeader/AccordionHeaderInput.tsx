@@ -3,9 +3,15 @@ import { imksTheme } from "../../../theme/customeTheme";
 import EditIcon from "@mui/icons-material/Edit";
 import { AccordionActionTypeIcon } from "./AccordionActionTypeIcon";
 import { useState } from "react";
+import { selectChannelTitle } from "../../../store/selectors/channelSelectors";
+import { useAppSelector } from "../../../store/storeRedux";
 
 export const AccordionHeaderInput = (props: { channelId: number }) => {
   const [active, setActive] = useState(true);
+
+  const channelTitle = useAppSelector((state) =>
+    selectChannelTitle(state, props.channelId)
+  );
 
   return (
     <Paper
@@ -23,8 +29,7 @@ export const AccordionHeaderInput = (props: { channelId: number }) => {
       <TextField
         disabled={active}
         focused={!active}
-        // tady na základě channelId vyberu titel nebo default
-        defaultValue={"channelTitle"}
+        defaultValue={channelTitle}
         sx={{
           "& .MuiInputBase-input.Mui-disabled": {
             "&::placeholder": {
@@ -40,7 +45,6 @@ export const AccordionHeaderInput = (props: { channelId: number }) => {
           },
         }}
       />
-
       <IconButton
         color="primary"
         sx={{ p: "10px" }}

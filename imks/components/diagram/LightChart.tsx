@@ -20,7 +20,6 @@ const LightChart = () => {
           color: cyan[500],
           label: "Hnojení",
           id: "1",
-
           data: [
             10, 10, 40, 40, 40, 90, 90, 90, 30, 30, 30, 30, 30, 30, 30, 30,
           ],

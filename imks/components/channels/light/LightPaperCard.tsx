@@ -1,9 +1,9 @@
 import { Grid2, Paper } from "@mui/material";
 import { TimeInput } from "./TimeInput";
 import { LightSlider } from "./LightSlider";
-import { DeleteIcon } from "./DeleteIcon";
-import { DuplicateIcon } from "./DuplicateIcon";
-import { GridButtonIcon } from "./GridButtonIcon";
+import { DeleteIcon } from "../DeleteIcon";
+import { DuplicateIcon } from "../DuplicateIcon";
+import { GridButtonIcon } from "../GridButtonIcon";
 
 export const LightPaperCard = () => {
   return (

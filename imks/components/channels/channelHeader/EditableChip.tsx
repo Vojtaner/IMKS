@@ -1,19 +1,20 @@
-import { AccordionLightType, ChanellColors } from "../../entity/entity";
+import { ChanellColors } from "../../../entity/entity";
 import Chip from "@mui/material/Chip/Chip";
 import * as React from "react";
 import RadioGroup from "@mui/material/RadioGroup";
 import Radio from "@mui/material/Radio";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { useRef, useState } from "react";
-import { DialogWindow } from "../app/DialogWindow";
+import { DialogWindow } from "../../app/DialogWindow";
 
-export const EditableChip = (
-  props: Pick<AccordionLightType, "channelIndex" | "color">
-) => {
-  const { channelIndex, color } = props;
-
+export const EditableChip = (props: { channelId: number }) => {
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("default");
+
+  //vybrat barvu chipu ze statu na základě ID
+  // vybrat sadu barev, které může uživatel vybrat ze statu
+
+  const color = "secondary";
 
   const handleClickListItem = () => {
     setOpen(true);
@@ -24,13 +25,14 @@ export const EditableChip = (
 
     if (newValue) {
       setValue(newValue);
+      //tady setovat ve storu novu barvu
     }
   };
 
   return (
     <>
       <Chip
-        label={channelIndex}
+        label={`Kanál ${props.channelId}`}
         sx={{
           position: "absolute",
           top: "-18%",

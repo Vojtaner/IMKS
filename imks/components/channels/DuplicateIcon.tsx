@@ -1,6 +1,5 @@
 import useMediaQuery from "@mui/material/useMediaQuery";
-import React from "react";
-import { imksTheme } from "../theme/customeTheme";
+import { imksTheme } from "../../theme/customeTheme";
 import IconButton from "@mui/material/IconButton";
 import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
 

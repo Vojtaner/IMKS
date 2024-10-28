@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { DialogWindow } from "./app/DialogWindow";
+import { DialogWindow } from "../app/DialogWindow";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
 import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
-import { imksTheme } from "../theme/customeTheme";
+import { imksTheme } from "../../theme/customeTheme";
 
 export const DeleteIcon = () => {
   const [open, setOpen] = useState<boolean>(false);

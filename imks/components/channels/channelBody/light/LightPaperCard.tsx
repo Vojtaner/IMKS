@@ -5,7 +5,10 @@ import { DeleteIcon } from "../../DeleteIcon";
 import { DuplicateIcon } from "../../DuplicateIcon";
 import { GridButtonIcon } from "../../GridButtonIcon";
 
-export const LightPaperCard = () => {
+export const LightPaperCard = (props: {
+  channelId: number;
+  sliderId: number;
+}) => {
   return (
     <Paper
       sx={{
@@ -15,16 +18,19 @@ export const LightPaperCard = () => {
     >
       <Grid2 container flexGrow={1} alignItems={"center"}>
         <GridButtonIcon size={{ xs: 1, md: 1 }}>
-          <DuplicateIcon />
+          <DuplicateIcon
+            channelId={props.channelId}
+            sliderId={props.sliderId}
+          />
         </GridButtonIcon>
         <Grid2 spacing={2} size={{ xs: 7, md: "grow" }}>
-          <LightSlider />
+          <LightSlider channelId={props.channelId} sliderId={props.sliderId} />
         </Grid2>
         <Grid2 size={{ xs: 3, md: "auto" }}>
           <TimeInput />
         </Grid2>
         <GridButtonIcon size={{ xs: 1, md: 1 }}>
-          <DeleteIcon />
+          <DeleteIcon channelId={props.channelId} sliderId={props.sliderId} />
         </GridButtonIcon>
       </Grid2>
     </Paper>

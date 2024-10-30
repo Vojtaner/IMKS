@@ -16,6 +16,8 @@ import {
   selectChannelTitle,
 } from "../../store/selectors/channelSelectors";
 import { ChannelActionType } from "../../entity/entity";
+import { SliderActionsProvider } from "../../contextAPI/sliderActionsContext";
+
 export function ChannelAccordion(props: { channelId: number }) {
   // vybrat channelActionType z reduxu a zvolit správnou komponentu do accordion detailu
   // vyrequestovat expanded z REDUXU
@@ -29,8 +31,6 @@ export function ChannelAccordion(props: { channelId: number }) {
   const channelTitle = useAppSelector((state) =>
     selectChannelTitle(state, props.channelId)
   );
-
-  console.log({ channelActionType });
 
   return (
     <Accordion
@@ -86,18 +86,21 @@ export function ChannelAccordion(props: { channelId: number }) {
         <ExpandMoreButton channelId={props.channelId} />
       </AccordionSummary>
       <AccordionDetails>
-        <ChannelAccordion.ButtoBar />
+        <ChannelAccordion.ButtoBar channelId={props.channelId} />
+
         {channelActionType === ChannelActionType.Light && (
-          <LightSettingsList
-            isExpanded={isExpanded}
-            channelId={props.channelId}
-          />
+          <SliderActionsProvider channelId={props.channelId}>
+            <LightSettingsList
+              isExpanded={isExpanded}
+              channelId={props.channelId}
+            />
+          </SliderActionsProvider>
         )}
         {channelActionType === ChannelActionType.Fertilize && (
           <FertilizeSettingForm />
         )}
         {channelActionType === ChannelActionType.NotSelected && (
-          <ChannelActionTypeChoice />
+          <ChannelActionTypeChoice channelId={props.channelId} />
         )}
       </AccordionDetails>
     </Accordion>

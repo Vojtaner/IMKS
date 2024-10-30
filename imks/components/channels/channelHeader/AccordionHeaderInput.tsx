@@ -4,14 +4,23 @@ import EditIcon from "@mui/icons-material/Edit";
 import { AccordionActionTypeIcon } from "./AccordionActionTypeIcon";
 import { useState } from "react";
 import { selectChannelTitle } from "../../../store/selectors/channelSelectors";
-import { useAppSelector } from "../../../store/storeRedux";
+import { useAppDispatch, useAppSelector } from "../../../store/storeRedux";
+import SaveAsIcon from "@mui/icons-material/SaveAs";
+import { saveChannelTitle } from "../../../store/slices/channelsSlice";
 
 export const AccordionHeaderInput = (props: { channelId: number }) => {
-  const [active, setActive] = useState(true);
+  const [disabled, setDisabled] = useState<boolean>(true);
+  const [title, setTitle] = useState<string>("Pojmenujte kanál");
+  const dispatch = useAppDispatch();
 
   const channelTitle = useAppSelector((state) =>
     selectChannelTitle(state, props.channelId)
   );
+
+  const handleEditTitle = () => {
+    dispatch(saveChannelTitle({ title, channelId: props.channelId }));
+    setDisabled((prev) => !prev);
+  };
 
   return (
     <Paper
@@ -27,9 +36,10 @@ export const AccordionHeaderInput = (props: { channelId: number }) => {
     >
       <AccordionActionTypeIcon channelId={props.channelId} />
       <TextField
-        disabled={active}
-        focused={!active}
+        disabled={disabled}
+        focused={!disabled}
         defaultValue={channelTitle}
+        onChange={(event) => setTitle(event.target.value)}
         sx={{
           "& .MuiInputBase-input.Mui-disabled": {
             "&::placeholder": {
@@ -45,12 +55,12 @@ export const AccordionHeaderInput = (props: { channelId: number }) => {
           },
         }}
       />
-      <IconButton
-        color="primary"
-        sx={{ p: "10px" }}
-        onClick={() => setActive((prev) => !prev)}
-      >
-        <EditIcon color="inherit" />
+      <IconButton color="primary" sx={{ p: "10px" }} onClick={handleEditTitle}>
+        {disabled ? (
+          <EditIcon color="inherit" />
+        ) : (
+          <SaveAsIcon color="inherit" />
+        )}
       </IconButton>
     </Paper>
   );

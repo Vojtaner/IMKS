@@ -1,17 +1,16 @@
 import { IconButton } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useAppDispatch } from "../../../store/storeRedux";
+import { toggleExpandChannel } from "../../../store/slices/channelsSlice";
 
 export const ExpandMoreButton = (props: { channelId: number }) => {
-  // změnit expand ve formu REDUX handleChangeExpnaded
-  const handleChangeExpnaded = (x: number) => {
-    console.log(x);
-  };
+  const dispatch = useAppDispatch();
 
   return (
     <IconButton
       sx={{ p: "10px" }}
       aria-label="expand-arrow"
-      onClick={() => handleChangeExpnaded(props.channelId)}
+      onClick={() => dispatch(toggleExpandChannel(props.channelId))}
     >
       <ExpandMoreIcon />
     </IconButton>

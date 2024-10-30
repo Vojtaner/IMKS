@@ -17,26 +17,24 @@ export type ChannelForm = {
     title: string;
     expanded: boolean;
   };
-} & (LightFormType | FertilizeFormType | SelectActionTypeForm);
+} & (LightFormType | FertilizeFormType | NotSelectedActionTypeForm);
 
-type LightFormType = {
+export type LightFormType = {
   channelActionType: ChannelActionType.Light;
-  id: number;
   slidersData: Record<number, SliderData>;
 };
 
-type SliderData = { sliderId: number; intensity: number; time: string };
+export type SliderData = { sliderId: number; intensity: number; time: string };
 
-type FertilizeFormType = {
+export type FertilizeFormType = {
   channelActionType: ChannelActionType.Fertilize;
-  id: number;
-  time: Date;
+  time: string;
   fertilizerAmount: number;
   calibrationCoeficient: number;
   fertilizeCalendar: FertilizeCalendar;
 };
 
-type SelectActionTypeForm = {
+export type NotSelectedActionTypeForm = {
   channelActionType: ChannelActionType.NotSelected;
 };
 

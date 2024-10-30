@@ -4,13 +4,29 @@ import { styled } from "@mui/material/styles";
 import MuiInput from "@mui/material/Input";
 import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import {
+  selectFromAppState,
+  useAppDispatch,
+} from "../../../../store/storeRedux";
+import { selectSliderValue } from "../../../../store/selectors/channelSelectors";
+import { setSliderIntensity } from "../../../../store/slices/channelsSlice";
 
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export function LightSlider() {
-  const [value, setValue] = React.useState(30);
+export function LightSlider(props: { channelId: number; sliderId: number }) {
+  const { channelId, sliderId } = props;
+
+  // const data = selectFromAppState(selectChannels);
+
+  // console.log({ data, channelId, sliderId });
+
+  const valueSlider = selectFromAppState((state) =>
+    selectSliderValue(state, channelId, sliderId)
+  );
+  const [value, setValue] = React.useState(valueSlider);
+  const dispatch = useAppDispatch();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
@@ -24,8 +40,10 @@ export function LightSlider() {
   const handleBlur = () => {
     if (value < 0) {
       setValue(0);
+      dispatch(setSliderIntensity({ channelId, sliderId, intensity: value }));
     } else if (value > 100) {
       setValue(100);
+      dispatch(setSliderIntensity({ channelId, sliderId, intensity: value }));
     }
   };
 
@@ -40,6 +58,7 @@ export function LightSlider() {
       <Slider
         value={typeof value === "number" ? value : 0}
         onChange={handleSliderChange}
+        onChangeCommitted={handleBlur}
         aria-labelledby="input-slider"
       />
       <Box sx={{ display: "flex", alignItems: "center" }}>

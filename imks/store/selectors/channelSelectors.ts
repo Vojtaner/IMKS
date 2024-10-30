@@ -1,3 +1,4 @@
+import { isLightChannel } from "../../utils/typeGuards";
 import { AppStoreState, createAppSelector } from "../storeRedux";
 
 export const selectChannels = createAppSelector(
@@ -28,16 +29,17 @@ export const selectSliderData = createAppSelector(
   [selectChannels, (_, id: number) => id],
   (channels, id) => {
     const channel = channels[id];
-    if (!channel) {
-      throw new Error(`Channel with id ${id} does not exist.`);
-    }
 
-    if (channel.channelActionType === "light") {
+    if (isLightChannel(channel)) {
       return channel.slidersData;
-    } else {
-      throw new Error(
-        `Slider data is not available for 'fertilize' channel type.`
-      );
     }
+  }
+);
+
+export const selectSliderValue = createAppSelector(
+  [selectSliderData, (_, channelId: number, sliderId: number) => sliderId],
+  (sliderData, sliderId) => {
+    console.log({ sliderData, sliderId });
+    return sliderData[sliderId].intensity;
   }
 );

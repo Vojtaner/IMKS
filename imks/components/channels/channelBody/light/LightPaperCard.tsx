@@ -1,14 +1,11 @@
 import { Grid2, Paper } from "@mui/material";
 import { TimeInput } from "./TimeInput";
 import { LightSlider } from "./LightSlider";
-import { DeleteIcon } from "../../DeleteIcon";
-import { DuplicateIcon } from "../../DuplicateIcon";
+import SliderDeleteIcon from "../../SliderDeleteIcon";
+import { SliderDuplicateIcon } from "../../DuplicateIcon";
 import { GridButtonIcon } from "../../GridButtonIcon";
 
-export const LightPaperCard = (props: {
-  channelId: number;
-  sliderId: number;
-}) => {
+export const LightPaperCard = () => {
   return (
     <Paper
       sx={{
@@ -18,19 +15,16 @@ export const LightPaperCard = (props: {
     >
       <Grid2 container flexGrow={1} alignItems={"center"}>
         <GridButtonIcon size={{ xs: 1, md: 1 }}>
-          <DuplicateIcon
-            channelId={props.channelId}
-            sliderId={props.sliderId}
-          />
+          <SliderDuplicateIcon />
         </GridButtonIcon>
         <Grid2 spacing={2} size={{ xs: 7, md: "grow" }}>
-          <LightSlider channelId={props.channelId} sliderId={props.sliderId} />
+          <LightSlider />
         </Grid2>
         <Grid2 size={{ xs: 3, md: "auto" }}>
           <TimeInput />
         </Grid2>
         <GridButtonIcon size={{ xs: 1, md: 1 }}>
-          <DeleteIcon channelId={props.channelId} sliderId={props.sliderId} />
+          <SliderDeleteIcon />
         </GridButtonIcon>
       </Grid2>
     </Paper>

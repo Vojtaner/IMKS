@@ -3,14 +3,14 @@ import { DialogWindow } from "../app/DialogWindow";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
 import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
 import { imksTheme } from "../../theme/customeTheme";
-import { useAppDispatch } from "../../store/storeRedux";
-import { deleteSlider } from "../../store/slices/channelsSlice";
+import { useSliderActionsContext } from "../../contextAPI/sliderActionsContext";
 
-export const DeleteIcon = (props: { channelId: number; sliderId: number }) => {
-  const { channelId, sliderId } = props;
+export const SliderDeleteIcon = () => {
   const [open, setOpen] = useState<boolean>(false);
   const isExtraSmallScreen = useMediaQuery(imksTheme.breakpoints.up("xs"));
-  const dispatch = useAppDispatch();
+  const {
+    actions: { deleteSliderBySliderId },
+  } = useSliderActionsContext();
 
   return (
     <>
@@ -34,7 +34,7 @@ export const DeleteIcon = (props: { channelId: number; sliderId: number }) => {
         value={"primary"}
         title={"Odstranit posuvník"}
         open={open}
-        handleOk={() => dispatch(deleteSlider({ channelId, sliderId }))}
+        handleOk={() => deleteSliderBySliderId()}
       >
         <Typography id="deleteLightSliderSetting">
           Přejete si vymazat toto nastavení?
@@ -44,4 +44,4 @@ export const DeleteIcon = (props: { channelId: number; sliderId: number }) => {
   );
 };
 
-export default DeleteIcon;
+export default SliderDeleteIcon;

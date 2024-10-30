@@ -8,28 +8,32 @@ import {
 } from "../store/slices/channelsSlice";
 import { selectSliderData } from "../store/selectors/channelSelectors";
 
-export const useSliderActions = (channelId: number): SliderActionType => {
+export const useSliderActions = (
+  channelId: number,
+  sliderId: number
+): SliderActionType => {
   const dispatch = useAppDispatch();
 
-  const duplicateSliderBySliderId = (sliderId: number) => {
+  const duplicateSliderBySliderId = () => {
     dispatch(duplicatePreviousSlider({ channelId, sliderId }));
   };
   const addSliderBySliderId = () => {};
-  const deleteSliderBySliderId = (sliderId: number) => {
+  const deleteSliderBySliderId = () => {
     dispatch(duplicatePreviousSlider({ channelId, sliderId }));
   };
-  const updateSliderTimeBySliderId = (sliderId: number, time: string) => {
+  const updateSliderTimeBySliderId = (time: string) => {
     dispatch(setSliderTime({ channelId, sliderId, time }));
   };
-  const updateSliderIntensityBySliderId = (
-    sliderId: number,
-    intensity: number
-  ) => {
+  const updateSliderIntensityBySliderId = (intensity: number) => {
     dispatch(setSliderIntensity({ channelId, sliderId, intensity }));
   };
+
   const slidersData = useAppSelector((state) =>
     selectSliderData(state, channelId)
   );
+
+  const sliderIntensity = slidersData && slidersData[sliderId].intensity;
+  const sliderTime = slidersData && slidersData[sliderId].time;
 
   return {
     actions: {
@@ -38,7 +42,7 @@ export const useSliderActions = (channelId: number): SliderActionType => {
       deleteSliderBySliderId,
       updateSliderTimeBySliderId,
       updateSliderIntensityBySliderId,
+      data: { sliderTime, sliderIntensity },
     },
-    slidersData,
   };
 };

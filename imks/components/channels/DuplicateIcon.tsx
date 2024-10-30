@@ -2,29 +2,16 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { imksTheme } from "../../theme/customeTheme";
 import IconButton from "@mui/material/IconButton";
 import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
-import { useAppDispatch } from "../../store/storeRedux";
-import { duplicatePreviousSlider } from "../../store/slices/channelsSlice";
+import { useSliderActionsContext } from "../../contextAPI/sliderActionsContext";
 
-export const DuplicateIcon = (props: {
-  channelId: number;
-  sliderId: number;
-}) => {
-  const { channelId, sliderId } = props;
+export const SliderDuplicateIcon = () => {
   const isExtraSmallScreen = useMediaQuery(imksTheme.breakpoints.up("xs"));
-  const dispatch = useAppDispatch();
+  const {
+    actions: { duplicateSliderBySliderId },
+  } = useSliderActionsContext();
 
   return (
-    <IconButton
-      aria-label="delete"
-      onClick={() =>
-        dispatch(
-          duplicatePreviousSlider({
-            channelId,
-            sliderId,
-          })
-        )
-      }
-    >
+    <IconButton aria-label="delete" onClick={duplicateSliderBySliderId}>
       <SubdirectoryArrowLeftIcon
         fontSize={isExtraSmallScreen ? "small" : "large"}
         sx={{

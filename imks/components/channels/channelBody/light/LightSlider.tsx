@@ -1,32 +1,24 @@
 import Slider from "@mui/material/Slider";
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiInput from "@mui/material/Input";
 import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import {
-  selectFromAppState,
-  useAppDispatch,
-} from "../../../../store/storeRedux";
-import { selectSliderValue } from "../../../../store/selectors/channelSelectors";
-import { setSliderIntensity } from "../../../../store/slices/channelsSlice";
+import { useSliderActionsContext } from "../../../../contextAPI/sliderActionsContext";
 
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
-export function LightSlider(props: { channelId: number; sliderId: number }) {
-  const { channelId, sliderId } = props;
+export function LightSlider() {
+  const {
+    actions: {
+      updateSliderIntensityBySliderId,
+      data: { sliderIntensity },
+    },
+  } = useSliderActionsContext();
 
-  // const data = selectFromAppState(selectChannels);
-
-  // console.log({ data, channelId, sliderId });
-
-  const valueSlider = selectFromAppState((state) =>
-    selectSliderValue(state, channelId, sliderId)
-  );
-  const [value, setValue] = React.useState(valueSlider);
-  const dispatch = useAppDispatch();
+  const [value, setValue] = useState<number | undefined>(sliderIntensity);
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
   const handleSliderChange = (event: Event, newValue: number | number[]) => {
@@ -38,12 +30,14 @@ export function LightSlider(props: { channelId: number; sliderId: number }) {
   };
 
   const handleBlur = () => {
-    if (value < 0) {
-      setValue(0);
-      dispatch(setSliderIntensity({ channelId, sliderId, intensity: value }));
-    } else if (value > 100) {
-      setValue(100);
-      dispatch(setSliderIntensity({ channelId, sliderId, intensity: value }));
+    if (value) {
+      if (value < 0) {
+        setValue(0);
+        updateSliderIntensityBySliderId(value);
+      } else if (value > 100) {
+        setValue(100);
+        updateSliderIntensityBySliderId(value);
+      }
     }
   };
 

@@ -16,7 +16,6 @@ import {
   selectChannelTitle,
 } from "../../store/selectors/channelSelectors";
 import { ChannelActionType } from "../../entity/entity";
-import { SliderActionsProvider } from "../../contextAPI/sliderActionsContext";
 
 export function ChannelAccordion(props: { channelId: number }) {
   // vybrat channelActionType z reduxu a zvolit správnou komponentu do accordion detailu
@@ -89,12 +88,10 @@ export function ChannelAccordion(props: { channelId: number }) {
         <ChannelAccordion.ButtoBar channelId={props.channelId} />
 
         {channelActionType === ChannelActionType.Light && (
-          <SliderActionsProvider channelId={props.channelId}>
-            <LightSettingsList
-              isExpanded={isExpanded}
-              channelId={props.channelId}
-            />
-          </SliderActionsProvider>
+          <LightSettingsList
+            isExpanded={isExpanded}
+            channelId={props.channelId}
+          />
         )}
         {channelActionType === ChannelActionType.Fertilize && (
           <FertilizeSettingForm />

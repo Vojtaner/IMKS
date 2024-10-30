@@ -1,19 +1,15 @@
 import { createContext, ReactNode, useContext } from "react";
-import { SliderData } from "../entity/entity";
 import { useSliderActions } from "../hooks/sliderHooks";
 
 export type SliderActionType = {
   actions: {
-    duplicateSliderBySliderId: (sliderId: number) => void;
+    duplicateSliderBySliderId: () => void;
     addSliderBySliderId: () => void;
-    deleteSliderBySliderId: (sliderId: number) => void;
-    updateSliderTimeBySliderId: (sliderId: number, time: string) => void;
-    updateSliderIntensityBySliderId: (
-      sliderId: number,
-      intensity: number
-    ) => void;
+    deleteSliderBySliderId: () => void;
+    updateSliderTimeBySliderId: (time: string) => void;
+    updateSliderIntensityBySliderId: (intensity: number) => void;
+    data: { sliderTime?: string; sliderIntensity?: number };
   };
-  slidersData?: Record<number, SliderData>;
 };
 
 export const SliderActionContext = createContext<SliderActionType | undefined>(
@@ -28,14 +24,17 @@ export const useSliderActionsContext = () => {
       "useSliderActionContext must be used with in a SliderActionContext (wrapped around <LightSettingsList/>"
     );
   }
-  return sliderActions;
+  return {
+    ...sliderActions,
+  };
 };
 
 export const SliderActionsProvider = (props: {
   channelId: number;
+  sliderId: number;
   children: ReactNode;
 }) => {
-  const sliderActions = useSliderActions(props.channelId);
+  const sliderActions = useSliderActions(props.channelId, props.sliderId);
 
   return (
     <SliderActionContext.Provider value={sliderActions}>

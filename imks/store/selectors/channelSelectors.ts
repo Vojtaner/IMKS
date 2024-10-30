@@ -26,20 +26,12 @@ export const selectChannelExpanded = createAppSelector(
 // );
 
 export const selectSliderData = createAppSelector(
-  [selectChannels, (_, id: number) => id],
-  (channels, id) => {
-    const channel = channels[id];
+  [selectChannels, (_, channelId: number) => channelId],
+  (channels, channelId) => {
+    const channel = channels[channelId];
 
     if (isLightChannel(channel)) {
       return channel.slidersData;
     }
-  }
-);
-
-export const selectSliderValue = createAppSelector(
-  [selectSliderData, (_, channelId: number, sliderId: number) => sliderId],
-  (sliderData, sliderId) => {
-    console.log({ sliderData, sliderId });
-    return sliderData[sliderId].intensity;
   }
 );

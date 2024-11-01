@@ -14,6 +14,7 @@ COPY ./imks ./
 
 RUN npm run build
 
+
 FROM node:22-bullseye
 
 WORKDIR /app

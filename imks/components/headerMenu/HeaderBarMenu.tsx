@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper/Paper";
-import logo from "../../assets/logo.webp";
+import logo from "../../assets/logo.svg";
 import LanguageIcon from "@mui/icons-material/Language";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { useAppSelector } from "../../store/storeRedux";

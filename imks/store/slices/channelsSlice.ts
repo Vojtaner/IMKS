@@ -13,6 +13,8 @@ type channelId = number;
 
 const initialLightSettings: LightFormType = {
   channelActionType: ChannelActionType.Light,
+  allIds: [1, 2],
+  lastIncrementedId: 2,
   slidersData: {
     1: { sliderId: 1, intensity: 20, time: "00:00" },
     2: { sliderId: 2, intensity: 20, time: "00:00" },
@@ -86,7 +88,7 @@ const channelsSlice = createSlice({
         // problém s duplikací na zařazení do objektů, na správné místo, možná je řadit dle času automaticky a nehrotit indexy?
       }
     },
-    deleteSlider(
+    removeSlider(
       state,
       action: PayloadAction<{ channelId: number; sliderId: number }>
     ) {
@@ -95,6 +97,7 @@ const channelsSlice = createSlice({
       if (isLightChannel(state[channelId])) {
         if (sliderId >= 1) {
           delete state[channelId].slidersData[sliderId];
+          state[channelId].allIds.filter((id) => id !== sliderId);
         }
       }
     },
@@ -110,6 +113,20 @@ const channelsSlice = createSlice({
 
       if (isLightChannel(state[channelId])) {
         state[channelId].slidersData[sliderId].intensity = intensity;
+      }
+    },
+    addSlider(state, action: PayloadAction<{ channelId: number }>) {
+      const { channelId } = action.payload;
+
+      if (isLightChannel(state[channelId])) {
+        const newIncrementedId = state[channelId].lastIncrementedId + 1;
+        state[channelId].allIds.push(newIncrementedId);
+        state[channelId].lastIncrementedId = newIncrementedId;
+        state[channelId].slidersData[newIncrementedId] = {
+          intensity: 0,
+          time: "12:00",
+          sliderId: newIncrementedId,
+        };
       }
     },
     setSliderTime(
@@ -135,8 +152,9 @@ export const {
   setChannelActionType,
   resetChannelActionType,
   duplicatePreviousSlider,
-  deleteSlider,
+  removeSlider,
   setSliderIntensity,
   setSliderTime,
+  addSlider,
 } = channelsSlice.actions;
 export default channelsSlice.reducer;

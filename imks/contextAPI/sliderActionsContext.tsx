@@ -3,11 +3,11 @@ import { useSliderActions } from "../hooks/sliderHooks";
 
 export type SliderActionType = {
   actions: {
-    duplicateSliderBySliderId: () => void;
-    addSliderBySliderId: () => void;
-    deleteSliderBySliderId: () => void;
-    updateSliderTimeBySliderId: (time: string) => void;
-    updateSliderIntensityBySliderId: (intensity: number) => void;
+    duplicateSlider: () => void;
+    addNewSlider: () => void;
+    deleteSlider: () => void;
+    updateSliderTime: (time: string) => void;
+    updateSliderIntensity: (intensity: number) => void;
     data: { sliderTime?: string; sliderIntensity?: number };
   };
 };

@@ -2,11 +2,16 @@ import { Stack, Button } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Delete } from "@mui/icons-material";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
-import { useAppDispatch } from "../../../store/storeRedux";
-import { resetChannelActionType } from "../../../store/slices/channelsSlice";
+import { ChannelActionType } from "../../../entity/entity";
 
-export const ButtonBar = (props: { channelId: number }) => {
-  const dispatch = useAppDispatch();
+const ButtonBar = (props: {
+  channelId: number;
+  onResetChannel: () => void;
+  onAddNewSlider?: () => void;
+  channelActionType: ChannelActionType;
+  onClearForm: () => void;
+}) => {
+  // const dispatch = useAppDispatch();
 
   return (
     <Stack
@@ -15,14 +20,25 @@ export const ButtonBar = (props: { channelId: number }) => {
       direction={"row"}
       spacing={"0.5rem"}
     >
-      <Button startIcon={<AddOutlinedIcon />}>Přidat bod </Button>
+      {props.channelActionType === ChannelActionType.Light && (
+        <Button
+          onClick={() => props.onAddNewSlider?.()}
+          startIcon={<AddOutlinedIcon />}
+        >
+          Přidat bod
+        </Button>
+      )}
       <Button
         startIcon={<WaterDropIcon />}
-        onClick={() => dispatch(resetChannelActionType(props.channelId))}
+        onClick={() => props.onResetChannel()}
       >
         Resetovat kanál
       </Button>
-      <Button startIcon={<Delete />}>Vymazat nastavení</Button>
+      <Button onClick={() => props.onClearForm()} startIcon={<Delete />}>
+        Vymazat nastavení
+      </Button>
     </Stack>
   );
 };
+
+export default ButtonBar;

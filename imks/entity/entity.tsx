@@ -21,6 +21,8 @@ export type ChannelForm = {
 
 export type LightFormType = {
   channelActionType: ChannelActionType.Light;
+  allIds: number[];
+  lastIncrementedId: number;
   slidersData: Record<number, SliderData>;
 };
 

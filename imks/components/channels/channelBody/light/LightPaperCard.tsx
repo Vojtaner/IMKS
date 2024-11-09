@@ -4,8 +4,13 @@ import { LightSlider } from "./LightSlider";
 import SliderDeleteIcon from "../../SliderDeleteIcon";
 import { SliderDuplicateIcon } from "../../DuplicateIcon";
 import { GridButtonIcon } from "../../GridButtonIcon";
+import { useSliderActionsContext } from "../../../../contextAPI/sliderActionsContext";
 
 export const LightPaperCard = () => {
+  const {
+    actions: { deleteSlider },
+  } = useSliderActionsContext();
+
   return (
     <Paper
       sx={{
@@ -24,7 +29,7 @@ export const LightPaperCard = () => {
           <TimeInput />
         </Grid2>
         <GridButtonIcon size={{ xs: 1, md: 1 }}>
-          <SliderDeleteIcon />
+          <SliderDeleteIcon onDelete={deleteSlider} />
         </GridButtonIcon>
       </Grid2>
     </Paper>

@@ -3,7 +3,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import { EditableChip } from "./channelHeader/EditableChip";
-import { ButtonBar } from "./channelButtonMenu/ButtonBar";
+import ButtonBar from "./channelButtonMenu/ButtonBar";
 import { AccordionHeaderInput } from "./channelHeader/AccordionHeaderInput";
 import { ExpandMoreButton } from "./channelHeader/ExpandMoreButton";
 import { LightSettingsList } from "./channelBody/light/LightSettingsList";
@@ -16,11 +16,15 @@ import {
   selectChannelTitle,
 } from "../../store/selectors/channelSelectors";
 import { ChannelActionType } from "../../entity/entity";
+import { useDispatch } from "react-redux";
+import {
+  addSlider,
+  resetChannelActionType,
+} from "../../store/slices/channelsSlice";
 
 export function ChannelAccordion(props: { channelId: number }) {
-  // vybrat channelActionType z reduxu a zvolit správnou komponentu do accordion detailu
-  // vyrequestovat expanded z REDUXU
-  // select title z reduxu
+  const { channelId } = props;
+  const dispatch = useDispatch();
   const channelActionType = useAppSelector((state) =>
     selectChannelActionType(state, props.channelId)
   );
@@ -85,8 +89,15 @@ export function ChannelAccordion(props: { channelId: number }) {
         <ExpandMoreButton channelId={props.channelId} />
       </AccordionSummary>
       <AccordionDetails>
-        <ChannelAccordion.ButtoBar channelId={props.channelId} />
-
+        <ChannelAccordion.ButtoBar
+          channelId={props.channelId}
+          channelActionType={channelActionType}
+          onClearForm={() => alert("nepřipraveno")}
+          onResetChannel={() =>
+            dispatch(resetChannelActionType(props.channelId))
+          }
+          onAddNewSlider={() => dispatch(addSlider({ channelId }))}
+        />
         {channelActionType === ChannelActionType.Light && (
           <LightSettingsList
             isExpanded={isExpanded}

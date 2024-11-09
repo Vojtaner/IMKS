@@ -2,9 +2,11 @@ import { useAppDispatch, useAppSelector } from "../store/storeRedux";
 
 import { SliderActionType } from "../contextAPI/sliderActionsContext";
 import {
-  duplicatePreviousSlider,
   setSliderIntensity,
   setSliderTime,
+  removeSlider,
+  duplicatePreviousSlider,
+  addSlider,
 } from "../store/slices/channelsSlice";
 import { selectSliderData } from "../store/selectors/channelSelectors";
 
@@ -14,17 +16,22 @@ export const useSliderActions = (
 ): SliderActionType => {
   const dispatch = useAppDispatch();
 
-  const duplicateSliderBySliderId = () => {
+  const duplicateSlider = () => {
     dispatch(duplicatePreviousSlider({ channelId, sliderId }));
   };
-  const addSliderBySliderId = () => {};
-  const deleteSliderBySliderId = () => {
-    dispatch(duplicatePreviousSlider({ channelId, sliderId }));
+  const addNewSlider = () => {
+    dispatch(addSlider({ channelId }));
   };
-  const updateSliderTimeBySliderId = (time: string) => {
+
+  const deleteSlider = () => {
+    dispatch(removeSlider({ channelId, sliderId }));
+  };
+
+  const updateSliderTime = (time: string) => {
     dispatch(setSliderTime({ channelId, sliderId, time }));
   };
-  const updateSliderIntensityBySliderId = (intensity: number) => {
+
+  const updateSliderIntensity = (intensity: number) => {
     dispatch(setSliderIntensity({ channelId, sliderId, intensity }));
   };
 
@@ -37,11 +44,11 @@ export const useSliderActions = (
 
   return {
     actions: {
-      duplicateSliderBySliderId,
-      addSliderBySliderId,
-      deleteSliderBySliderId,
-      updateSliderTimeBySliderId,
-      updateSliderIntensityBySliderId,
+      duplicateSlider,
+      addNewSlider,
+      deleteSlider,
+      updateSliderTime,
+      updateSliderIntensity,
       data: { sliderTime, sliderIntensity },
     },
   };

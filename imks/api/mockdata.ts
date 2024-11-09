@@ -26,6 +26,8 @@ export const initialChannelState: ImksState["channels"] = {
       expanded: true,
       color: "secondary",
     },
+    allIds: [1, 2, 3, 4, 5, 6],
+    lastIncrementedId: 6,
     slidersData: {
       1: { sliderId: 1, intensity: 40, time: "9:00" },
       2: { sliderId: 2, intensity: 40, time: "10:00" },
@@ -43,6 +45,8 @@ export const initialChannelState: ImksState["channels"] = {
       color: "error",
     },
     channelActionType: ChannelActionType.Light,
+    allIds: [1],
+    lastIncrementedId: 1,
     slidersData: {
       1: { sliderId: 1, intensity: 20, time: "9:00" },
       // 2: { sliderId: 2, intensity: 20, time: "10:00" },

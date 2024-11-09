@@ -3,14 +3,10 @@ import { DialogWindow } from "../app/DialogWindow";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
 import DeleteSweepOutlinedIcon from "@mui/icons-material/DeleteSweepOutlined";
 import { imksTheme } from "../../theme/customeTheme";
-import { useSliderActionsContext } from "../../contextAPI/sliderActionsContext";
 
-export const SliderDeleteIcon = () => {
+export const SliderDeleteIcon = (props: { onDelete: () => void }) => {
   const [open, setOpen] = useState<boolean>(false);
   const isExtraSmallScreen = useMediaQuery(imksTheme.breakpoints.up("xs"));
-  const {
-    actions: { deleteSliderBySliderId },
-  } = useSliderActionsContext();
 
   return (
     <>
@@ -34,10 +30,10 @@ export const SliderDeleteIcon = () => {
         value={"primary"}
         title={"Odstranit posuvník"}
         open={open}
-        handleOk={() => deleteSliderBySliderId()}
+        handleOk={props.onDelete}
       >
         <Typography id="deleteLightSliderSetting">
-          Přejete si vymazat toto nastavení?
+          Přejete si vymazat tento posuvník?
         </Typography>
       </DialogWindow>
     </>

@@ -21,12 +21,12 @@ export const initialChannelState: ImksState["channels"] = {
     allIds: [1, 2, 3, 4, 5, 6],
     lastIncrementedId: 6,
     slidersData: {
-      1: { sliderId: 1, intensity: 40, time: new Date("2023-12-12T10:00:00") },
-      2: { sliderId: 2, intensity: 40, time: new Date("2023-12-12T11:00:00") },
-      3: { sliderId: 3, intensity: 60, time: new Date("2023-12-12T12:00:00") },
-      4: { sliderId: 4, intensity: 60, time: new Date("2023-12-12T13:00:00") },
-      5: { sliderId: 5, intensity: 20, time: new Date("2023-12-12T14:00:00") },
-      6: { sliderId: 6, intensity: 20, time: new Date("2023-12-12T15:00:00") },
+      1: { sliderId: 1, intensity: 40, time: "9:00" },
+      2: { sliderId: 2, intensity: 40, time: "10:00" },
+      3: { sliderId: 3, intensity: 60, time: "15:00" },
+      4: { sliderId: 4, intensity: 60, time: "17:00" },
+      5: { sliderId: 5, intensity: 20, time: "19:00" },
+      6: { sliderId: 6, intensity: 20, time: "22:00" },
     },
   },
   3: {
@@ -40,8 +40,8 @@ export const initialChannelState: ImksState["channels"] = {
     allIds: [1],
     lastIncrementedId: 1,
     slidersData: {
-      1: { sliderId: 1, intensity: 20, time: new Date("2023-12-12T16:00:00") },
-      2: { sliderId: 2, intensity: 20, time: new Date("2023-12-12T16:00:00") },
+      1: { sliderId: 1, intensity: 40, time: "19:00" },
+      2: { sliderId: 2, intensity: 40, time: "23:00" },
     },
   },
 };

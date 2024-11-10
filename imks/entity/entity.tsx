@@ -26,7 +26,7 @@ export type LightFormType = {
   slidersData: Record<number, SliderData>;
 };
 
-export type SliderData = { sliderId: number; intensity: number; time: Date };
+export type SliderData = { sliderId: number; intensity: number; time: string };
 
 export type FertilizeFormType = {
   channelActionType: ChannelActionType.Fertilize;

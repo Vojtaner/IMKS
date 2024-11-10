@@ -16,14 +16,14 @@ const initialLightSettings: LightFormType = {
   allIds: [1, 2],
   lastIncrementedId: 2,
   slidersData: {
-    1: { sliderId: 1, intensity: 20, time: "00:00" },
-    2: { sliderId: 2, intensity: 20, time: "00:00" },
+    1: { sliderId: 1, intensity: 20, time: new Date() },
+    2: { sliderId: 2, intensity: 20, time: new Date() },
   },
 };
 
 const initialFertilizeSettings: FertilizeFormType = {
   channelActionType: ChannelActionType.Fertilize,
-  time: "13:00",
+  time: new Date(),
   fertilizerAmount: 20,
   calibrationCoeficient: 2,
   fertilizeCalendar: {
@@ -97,7 +97,9 @@ const channelsSlice = createSlice({
       if (isLightChannel(state[channelId])) {
         if (sliderId >= 1) {
           delete state[channelId].slidersData[sliderId];
-          state[channelId].allIds.filter((id) => id !== sliderId);
+          state[channelId].allIds = state[channelId].allIds.filter(
+            (id) => id !== sliderId
+          );
         }
       }
     },
@@ -124,7 +126,7 @@ const channelsSlice = createSlice({
         state[channelId].lastIncrementedId = newIncrementedId;
         state[channelId].slidersData[newIncrementedId] = {
           intensity: 0,
-          time: "12:00",
+          time: new Date(),
           sliderId: newIncrementedId,
         };
       }
@@ -134,7 +136,7 @@ const channelsSlice = createSlice({
       action: PayloadAction<{
         channelId: number;
         sliderId: number;
-        time: string;
+        time: Date;
       }>
     ) {
       const { channelId, sliderId, time } = action.payload;

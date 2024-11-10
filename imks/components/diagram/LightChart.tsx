@@ -8,30 +8,47 @@ import {
 const LightChart = () => {
   return (
     <LineChart
+      tooltip={{}}
       xAxis={[
         {
-          data: [0, 1, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 23, 24],
+          scaleType: "time",
+          valueFormatter: (value) => {
+            const [hours, minutes] = String(value).split(" ")[4].split(":");
+            return `${hours}:${minutes}`;
+          },
+          data: [
+            new Date("2023-12-12T10:00:00"),
+            new Date("2023-12-12T11:00:00"),
+            new Date("2023-12-12T12:00:00"),
+            new Date("2023-12-12T13:00:00"),
+            new Date("2023-12-12T14:00:00"),
+            new Date("2023-12-12T15:00:00"),
+            new Date("2023-12-12T16:00:00"),
+            new Date("2023-12-12T17:00:00"),
+            new Date("2023-12-12T18:00:00"),
+          ],
         },
       ]}
-      yAxis={[{ data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100] }]}
       series={[
         {
           curve: "linear",
           color: cyan[500],
-          label: "Hnojení",
+          label: "Světlo",
           id: "1",
-          data: [
-            10, 10, 40, 40, 40, 90, 90, 90, 30, 30, 30, 30, 30, 30, 30, 30,
-          ],
+          data: [20, 10, 40, 10, 10, 90, 90, 100, 30],
+          valueFormatter: (value) => {
+            return `${value} %`;
+          },
         },
         {
           curve: "linear",
           color: "#b6cf55",
-          label: "Světlo",
+          label: "Hnojení",
           id: "2",
-          data: [
-            30, 30, 60, 60, 60, 25, 25, 25, 50, 50, 50, 50, 50, 70, 70, 70,
-          ],
+          data: [10, 10, 40, 40, 90, 30, 30, 30, 30],
+          valueFormatter: (value) => {
+            return `${value} %`;
+          },
         },
       ]}
       sx={{

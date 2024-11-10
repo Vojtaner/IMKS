@@ -26,11 +26,11 @@ export type LightFormType = {
   slidersData: Record<number, SliderData>;
 };
 
-export type SliderData = { sliderId: number; intensity: number; time: string };
+export type SliderData = { sliderId: number; intensity: number; time: Date };
 
 export type FertilizeFormType = {
   channelActionType: ChannelActionType.Fertilize;
-  time: string;
+  time: Date;
   fertilizerAmount: number;
   calibrationCoeficient: number;
   fertilizeCalendar: FertilizeCalendar;

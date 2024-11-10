@@ -6,7 +6,7 @@ export type SliderActionType = {
     duplicateSlider: () => void;
     addNewSlider: () => void;
     deleteSlider: () => void;
-    updateSliderTime: (time: string) => void;
+    updateSliderTime: (time: Date) => void;
     updateSliderIntensity: (intensity: number) => void;
     data: { sliderTime?: string; sliderIntensity?: number };
   };

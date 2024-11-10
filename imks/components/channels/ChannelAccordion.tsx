@@ -9,7 +9,7 @@ import { ExpandMoreButton } from "./channelHeader/ExpandMoreButton";
 import { LightSettingsList } from "./channelBody/light/LightSettingsList";
 import { FertilizeSettingForm } from "./channelBody/fertilize/FertilizeSettingForm";
 import { ChannelActionTypeChoice } from "./channelBody/notSelected/ChannelActionTypeChoice";
-import { useAppSelector } from "../../store/storeRedux";
+import { getAppState, useAppSelector } from "../../store/storeRedux";
 import {
   selectChannelActionType,
   selectChannelExpanded,
@@ -34,6 +34,8 @@ export function ChannelAccordion(props: { channelId: number }) {
   const channelTitle = useAppSelector((state) =>
     selectChannelTitle(state, props.channelId)
   );
+
+  console.log({ state: getAppState() });
 
   return (
     <Accordion

@@ -16,14 +16,14 @@ const initialLightSettings: LightFormType = {
   allIds: [1, 2],
   lastIncrementedId: 2,
   slidersData: {
-    1: { sliderId: 1, intensity: 20, time: new Date() },
-    2: { sliderId: 2, intensity: 20, time: new Date() },
+    1: { sliderId: 1, intensity: 20, time: "10:00" },
+    2: { sliderId: 2, intensity: 20, time: "19:00" },
   },
 };
 
 const initialFertilizeSettings: FertilizeFormType = {
   channelActionType: ChannelActionType.Fertilize,
-  time: new Date(),
+  time: "9:00",
   fertilizerAmount: 20,
   calibrationCoeficient: 2,
   fertilizeCalendar: {
@@ -125,8 +125,8 @@ const channelsSlice = createSlice({
         state[channelId].allIds.push(newIncrementedId);
         state[channelId].lastIncrementedId = newIncrementedId;
         state[channelId].slidersData[newIncrementedId] = {
-          intensity: 0,
-          time: new Date(),
+          intensity: 50,
+          time: "12:00",
           sliderId: newIncrementedId,
         };
       }
@@ -136,7 +136,7 @@ const channelsSlice = createSlice({
       action: PayloadAction<{
         channelId: number;
         sliderId: number;
-        time: Date;
+        time: string;
       }>
     ) {
       const { channelId, sliderId, time } = action.payload;

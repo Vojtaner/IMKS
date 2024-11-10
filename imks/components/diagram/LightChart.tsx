@@ -20,7 +20,7 @@ const LightChart = (props: {
       ([id, { color, legendTitle, series }]) => {
         return {
           data: series,
-          curve: "step",
+          curve: "linear",
           color,
           // zde dát pryč očekávaný null parametr jen na number
           valueFormatter: (value: number | null) => {

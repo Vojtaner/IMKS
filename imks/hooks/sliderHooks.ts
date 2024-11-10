@@ -1,8 +1,4 @@
-import {
-  getAppState,
-  useAppDispatch,
-  useAppSelector,
-} from "../store/storeRedux";
+import { useAppDispatch, useAppSelector } from "../store/storeRedux";
 
 import { SliderActionType } from "../contextAPI/sliderActionsContext";
 import {
@@ -61,8 +57,8 @@ export const useSliderActions = (
       deleteSlider,
       updateSliderTime,
       updateSliderIntensity,
-      data: { sliderTime, sliderIntensity },
     },
+    data: { sliderTime, sliderIntensity },
   };
 };
 

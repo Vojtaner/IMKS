@@ -7,11 +7,11 @@ import { useSliderActionsContext } from "../../contextAPI/sliderActionsContext";
 export const SliderDuplicateIcon = () => {
   const isExtraSmallScreen = useMediaQuery(imksTheme.breakpoints.up("xs"));
   const {
-    actions: { duplicateSliderBySliderId },
+    actions: { duplicateSlider },
   } = useSliderActionsContext();
 
   return (
-    <IconButton aria-label="delete" onClick={duplicateSliderBySliderId}>
+    <IconButton aria-label="delete" onClick={duplicateSlider}>
       <SubdirectoryArrowLeftIcon
         fontSize={isExtraSmallScreen ? "small" : "large"}
         sx={{

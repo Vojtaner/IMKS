@@ -6,10 +6,10 @@ export type SliderActionType = {
     duplicateSlider: () => void;
     addNewSlider: () => void;
     deleteSlider: () => void;
-    updateSliderTime: (time: Date) => void;
+    updateSliderTime: (time: string) => void;
     updateSliderIntensity: (intensity: number) => void;
-    data: { sliderTime?: string; sliderIntensity?: number };
   };
+  data: { sliderTime?: string; sliderIntensity?: number };
 };
 
 export const SliderActionContext = createContext<SliderActionType | undefined>(

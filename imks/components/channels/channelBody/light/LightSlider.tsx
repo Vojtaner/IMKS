@@ -3,10 +3,8 @@ import SliderWithInput from "../../../app/SliderWithInput";
 
 export function LightSlider() {
   const {
-    actions: {
-      updateSliderIntensity,
-      data: { sliderIntensity },
-    },
+    actions: { updateSliderIntensity },
+    data: { sliderIntensity },
   } = useSliderActionsContext();
 
   return (

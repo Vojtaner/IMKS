@@ -1,11 +1,35 @@
-import cyan from "@mui/material/colors/cyan";
+import { LineSeriesType } from "@mui/x-charts";
+import { MakeOptional } from "@mui/x-charts/internals";
 import {
   LineChart,
   lineElementClasses,
   markElementClasses,
 } from "@mui/x-charts/LineChart";
 
-const LightChart = () => {
+const LightChart = (props: {
+  timeData: Date[];
+  intensityData: Record<
+    number,
+    { color: string; legendTitle: string; series: number[] }
+  >;
+}) => {
+  const intesityDataParams: MakeOptional<LineSeriesType, "type">[] =
+    Object.entries(props.intensityData).map(
+      ([id, { color, legendTitle, series }]) => {
+        return {
+          data: series,
+          curve: "linear",
+          color,
+          // zde dát pryč očekávaný null parametr jen na number
+          valueFormatter: (value: number | null) => {
+            return `${value} %`;
+          },
+          label: legendTitle,
+          id,
+        };
+      }
+    );
+
   return (
     <LineChart
       tooltip={{}}
@@ -16,41 +40,10 @@ const LightChart = () => {
             const [hours, minutes] = String(value).split(" ")[4].split(":");
             return `${hours}:${minutes}`;
           },
-          data: [
-            new Date("2023-12-12T10:00:00"),
-            new Date("2023-12-12T11:00:00"),
-            new Date("2023-12-12T12:00:00"),
-            new Date("2023-12-12T13:00:00"),
-            new Date("2023-12-12T14:00:00"),
-            new Date("2023-12-12T15:00:00"),
-            new Date("2023-12-12T16:00:00"),
-            new Date("2023-12-12T17:00:00"),
-            new Date("2023-12-12T18:00:00"),
-          ],
+          data: props.timeData,
         },
       ]}
-      series={[
-        {
-          curve: "linear",
-          color: cyan[500],
-          label: "Světlo",
-          id: "1",
-          data: [20, 10, 40, 10, 10, 90, 90, 100, 30],
-          valueFormatter: (value) => {
-            return `${value} %`;
-          },
-        },
-        {
-          curve: "linear",
-          color: "#b6cf55",
-          label: "Hnojení",
-          id: "2",
-          data: [10, 10, 40, 40, 90, 30, 30, 30, 30],
-          valueFormatter: (value) => {
-            return `${value} %`;
-          },
-        },
-      ]}
+      series={intesityDataParams}
       sx={{
         [`.${lineElementClasses.root}, .${markElementClasses.root}`]: {
           strokeWidth: 1,

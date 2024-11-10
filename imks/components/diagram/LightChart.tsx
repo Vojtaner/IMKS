@@ -5,13 +5,15 @@ import {
   lineElementClasses,
   markElementClasses,
 } from "@mui/x-charts/LineChart";
+import { LineChartIntensityData } from "../../entity/entity";
+
+// Combine with MakeOptional to ensure "type" is optional
+// type IntensityDataParams = (CustomLineSeriesType &
+//   MakeOptional<LineSeriesType, "type">)[];
 
 const LightChart = (props: {
   timeData: Date[];
-  intensityData: Record<
-    number,
-    { color: string; legendTitle: string; series: number[] }
-  >;
+  intensityData: LineChartIntensityData;
 }) => {
   const intesityDataParams: MakeOptional<LineSeriesType, "type">[] =
     Object.entries(props.intensityData).map(

@@ -20,7 +20,9 @@ export const TimeInput = () => {
         }}
         ampm={false}
         sx={{ maxWidth: "130px" }}
-        onChange={(event) => event && updateSliderTime(event.toDate())}
+        onChange={(event) => {
+          return event && updateSliderTime(event.toDate());
+        }}
       />
     </LocalizationProvider>
   );

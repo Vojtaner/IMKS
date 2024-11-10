@@ -77,3 +77,8 @@ export const ChannelIcons = {
   light: <EmojiObjectsIcon />,
   notSelected: <QuestionMarkIcon />,
 };
+
+export type LineChartIntensityData = Record<
+  number,
+  { color: string; legendTitle: string; series: number[] }
+>;

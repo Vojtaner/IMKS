@@ -148,27 +148,3 @@ const getIntensitySeries = (
   });
   return lineChartData;
 };
-
-// const getLineChartData = (
-//   allTimes: Date[],
-//   data: Record<number, SliderData[]>
-// ) => {
-//   const lineChartData: LineChartIntensityData = {
-//     2: { color: cyan[500], legendTitle: "Světlo", series: [] },
-//     3: { color: "#b6cf55", legendTitle: "Hnojení", series: [] },
-//   };
-
-//   allTimes.forEach((time) => {
-//     Object.entries(data).forEach(([channelId, slidersData]) => {
-//       const dataPoint = slidersData.find(
-//         (entry) => entry.time.getTime() === time.getTime()
-//       );
-//       const intensity = dataPoint
-//         ? dataPoint.intensity
-//         : lineChartData[+channelId].series.slice(-1)[0] || 0;
-
-//       lineChartData[+channelId].series.push(intensity);
-//     });
-//   });
-//   return lineChartData;
-// };

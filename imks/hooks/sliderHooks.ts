@@ -130,7 +130,6 @@ const getIntensitySeries = (
 
   allTimes.forEach((time) => {
     Object.entries(data).forEach(([channelId, slidersData]) => {
-      debugger;
       const dataPoint = slidersData.find((entry) => {
         const [hours, minutes] = entry.time.split(":").map(Number);
 

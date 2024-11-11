@@ -1,12 +1,13 @@
 import { Button } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper/Paper";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo_white.webp";
 import LanguageIcon from "@mui/icons-material/Language";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import { useAppSelector } from "../../store/storeRedux";
 import { selectAppLanguage } from "../../store/selectors/settingsSelectors";
 import { Languages } from "../../entity/entity";
+import WifiSettings from "../headerMenu/WifiSettings";
 
 const HeaderBarMenu = () => {
   const language = useAppSelector(selectAppLanguage);
@@ -34,12 +35,23 @@ const HeaderBarMenu = () => {
         <Grid
           size={"grow"}
           container
-          spacing={2}
+          spacing={4}
           justifyContent="flex-end"
           sx={{ maxHeight: "2.5rem" }}
         >
+          <WifiSettings onConfirmSettings={() => alert("Nastavení uloženo")} />
           <Button startIcon={<LanguageIcon />}>{Languages[language]}</Button>
-          <Button startIcon={<PictureAsPdfIcon />}>Návod ke stažení</Button>
+          <Button
+            startIcon={<PictureAsPdfIcon />}
+            onClick={() =>
+              window.open(
+                "https://www.imks.cz/user/documents/upload/navody/LED_kontroler/navod_LED_kontroler_V2_02.pdf",
+                "_blank"
+              )
+            }
+          >
+            Návod
+          </Button>
         </Grid>
       </Grid>
     </Paper>

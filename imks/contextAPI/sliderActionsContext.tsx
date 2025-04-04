@@ -12,9 +12,7 @@ export type SliderActionType = {
   data: { sliderTime?: string; sliderIntensity?: number };
 };
 
-export const SliderActionContext = createContext<SliderActionType | undefined>(
-  undefined
-);
+export const SliderActionContext = createContext<SliderActionType | null>(null);
 
 export const useSliderActionsContext = () => {
   const sliderActions = useContext(SliderActionContext);

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { ChanellColors, ChannelActionType, ImksState } from "../entity/entity";
 
 export const initialChannelState: ImksState["channels"] = {
@@ -45,8 +46,45 @@ export const initialChannelState: ImksState["channels"] = {
     },
   },
 };
+export const accessibleWifiList = [
+  {
+    id: "TP-Link_Mocal",
+    name: "TP-Link_Mocal",
+  },
+  {
+    id: "HomeWifi",
+    name: "HomeWifi",
+  },
+  {
+    id: "Filip339",
+    name: "Filip339",
+  },
+];
 
 export const settingsInitialState: ImksState["settings"] = {
   channelColors: ChanellColors,
   language: "cs-CZ",
+  wifi: {
+    accessibleWifiList,
+    controllerDate: dayjs(),
+    controllerName: "Obývák",
+    formDate: dayjs(),
+    ipAddress: "2001:4860:7:60a::fa",
+    isAutomaticConnectionChecked: true,
+    isAutomaticTimeChecked: true,
+    operatingMode: "ClientMode",
+    password: "heslohesloano",
+    wifiName: "TP-Link_Mocal",
+  },
 };
+
+export const wifiRegime = [
+  {
+    id: "ClientMode",
+    name: "Client Mode",
+  },
+  {
+    id: "APMode",
+    name: "Ap Mode",
+  },
+];

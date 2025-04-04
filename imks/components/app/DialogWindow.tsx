@@ -18,16 +18,8 @@ export type ConfirmationDialogRawProps = {
 };
 
 export const DialogWindow = (props: ConfirmationDialogRawProps) => {
-  const {
-    onClose,
-
-    open,
-    handleEntering,
-    handleOk,
-    title,
-    children,
-    ...other
-  } = props;
+  const { onClose, open, handleEntering, handleOk, title, children, ...other } =
+    props;
 
   const handleCancel = () => {
     onClose();
@@ -39,7 +31,7 @@ export const DialogWindow = (props: ConfirmationDialogRawProps) => {
 
   return (
     <Dialog
-      sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 435 } }}
+      sx={{ "& .MuiDialog-paper": { width: "80%", maxHeight: 650 } }}
       maxWidth="xs"
       TransitionProps={{
         onEntering: handleEntering,

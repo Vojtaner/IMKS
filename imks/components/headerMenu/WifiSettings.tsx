@@ -30,7 +30,7 @@ const WifiSettings = (props: { onConfirmSettings: () => void }) => {
         id={"deleteDialog"}
         keepMounted={false}
         value={"primary"}
-        title={"Nastavení připojení ke kontroleru"}
+        title={"Nastavení připojení"}
         open={open}
         handleOk={props.onConfirmSettings}
       >

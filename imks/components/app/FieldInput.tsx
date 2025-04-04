@@ -37,6 +37,7 @@ const FieldInput = (
     <TextField
       label={props.label}
       disabled={props.disabled}
+      placeholder={props.placeholder}
       value={value}
       onChange={(event) => handleChangeTitle(event.target.value)}
       sx={{

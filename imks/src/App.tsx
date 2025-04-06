@@ -4,6 +4,8 @@ import { ImksChannels } from "../components/channels/ImksChannels";
 import HeaderBarMenu from "../components/headerMenu/HeaderBarMenu";
 import LightChart from "../components/diagram/LightChart";
 import { useUpdateLineChart } from "../hooks/sliderHooks";
+import WebSocketComponent from "./websocket/webSocket";
+import { WebSocketProvider } from "../contextAPI/webSocketContext";
 
 //přidání nového posuvníku...má se přesunou v rámci pořadí ostaních posuvníků dle času?
 
@@ -18,17 +20,17 @@ import { useUpdateLineChart } from "../hooks/sliderHooks";
 
 //přidat návod
 
-//napojit websocket
-
 //kouknout na efektivitu renderů
 function App() {
   const { datesData, intensitySeries } = useUpdateLineChart();
-
   return (
     <ThemeProvider theme={imksTheme}>
-      <HeaderBarMenu />
-      <LightChart timeData={datesData} intensityData={intensitySeries} />
-      <ImksChannels />
+      <WebSocketProvider>
+        <WebSocketComponent />
+        <HeaderBarMenu />
+        <LightChart timeData={datesData} intensityData={intensitySeries} />
+        <ImksChannels />
+      </WebSocketProvider>
     </ThemeProvider>
   );
 }

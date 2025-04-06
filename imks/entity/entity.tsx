@@ -1,7 +1,6 @@
 import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import { Dayjs } from "dayjs";
 
 export type ImksState = {
   settings: {
@@ -85,15 +84,23 @@ export type LineChartIntensityData = Record<
   { color: string; legendTitle: string; series: number[] }
 >;
 
-type WifiForm = {
+export type WifiForm = {
   controllerName: string | undefined;
   wifiName: string;
   isAutomaticTimeChecked: boolean;
-  formDate: Dayjs;
+  formDate: string;
   password: string;
-  controllerDate: Dayjs;
+  controllerDate: string;
   operatingMode: "ClientMode" | "APMode";
-  accessibleWifiList: { id: string; name: string }[];
+  accessibleWifiList: AccessibleWifiType[];
   ipAddress: string;
   isAutomaticConnectionChecked: boolean;
+  wifiSignalStrength: number;
+  FWCurrent: string;
+  FWFuture: string;
+  MACAddress: string;
+  isClientModeConnected: boolean;
+  deviceId: string;
 };
+
+export type AccessibleWifiType = { id: string; name: string };

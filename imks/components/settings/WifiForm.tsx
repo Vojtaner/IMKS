@@ -3,15 +3,13 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  Checkbox,
-  FormControlLabel,
   Stack,
   styled,
   Typography,
 } from "@mui/material";
 import FieldInput from "../app/FieldInput";
 import SelectField from "../app/SelectField";
-import { accessibleWifiList, wifiRegime } from "../../api/mockdata";
+import { wifiRegime } from "../../api/mockdata";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { cyan } from "@mui/material/colors";
@@ -19,8 +17,33 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
+import { getWifiIcon } from "../../src/websocket/formatWebSocketData";
+import { CheckBoxButton } from "../app/CheckBoxButton";
+import { useAppSelector } from "../../store/storeRedux";
+import { selectWifiDeviceSettings } from "../../store/selectors/settingsSelectors";
 
 const WifiForm = () => {
+  const wifiSettings = useAppSelector((state) =>
+    selectWifiDeviceSettings(state)
+  );
+
+  const {
+    FWCurrent,
+    FWFuture,
+    MACAddress,
+    accessibleWifiList,
+    controllerDate,
+    controllerName,
+    deviceId,
+    ipAddress,
+    isAutomaticConnectionChecked,
+    isAutomaticTimeChecked,
+    isClientModeConnected,
+    operatingMode,
+    wifiName,
+    wifiSignalStrength,
+  } = wifiSettings;
+
   return (
     <Stack spacing={2}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -31,22 +54,24 @@ const WifiForm = () => {
         />
       </LocalizationProvider>
       <Typography>
-        Datum z kontroleru: <strong>01.01.2025</strong>
+        Datum z kontroleru:
+        <strong> {controllerDate}</strong>
       </Typography>
-      <FormControlLabel
-        control={
-          <Checkbox defaultChecked sx={{ padding: "0px 10px 0px 0px " }} />
-        }
+      <CheckBoxButton
+        isChecked={isAutomaticTimeChecked}
+        onChange={() => alert("implementovat")}
         label="Automatický čas/datum"
       />
+
       <FieldInput
         changeTitle={(value) => console.log(value)}
         placeholder="Kontroler - obyvák"
+        value={controllerName}
         label="Nazev zařízení"
       />
       <FieldInput
         changeTitle={(value) => console.log(value)}
-        value="heslo value"
+        value="nezměněno"
         label="Heslo WIFI"
         type="password"
       />
@@ -54,26 +79,35 @@ const WifiForm = () => {
         options={wifiRegime}
         label={"Vyberte režim WIFI"}
         id="select-wifi-operating-mode"
+        selectedValue={operatingMode}
       />
       <SelectField
         options={accessibleWifiList}
         label={"Vyberte vaše připojení WIFI"}
         id="select-wifi-network"
+        selectedValue={wifiName}
       />
       <Stack direction={"row"} spacing={2}>
         <Button>Uložit/Restartovat zařízení</Button>
         <Button>Test připojení</Button>
       </Stack>
-      <Stack>
-        <Typography fontWeight={600}>Stav Wifi sítě: </Typography>
-        <Typography fontWeight={600}>Síla Wifi sítě: </Typography>
-        <Typography fontWeight={600}>IP adresa v domácí síti: </Typography>
-        <Typography fontWeight={600}>ID zařízení: </Typography>
-        <Typography fontWeight={600}>MAC adresa zařízení: </Typography>
-        <Typography fontWeight={600}>FW aktuální: </Typography>
-        <Typography fontWeight={600}>FW budoucí: </Typography>
-        <Typography fontWeight={600}>FW UI: </Typography>
-        <Typography fontWeight={600}>49: </Typography>
+
+      <Stack gap={1}>
+        <TableRow
+          rowTitle={"Stav Wifi sítě"}
+          rowValue={isClientModeConnected ? "Připojeno" : "Nepřipojeno"}
+        />
+        <Stack direction={"row"}>
+          <Typography fontWeight={600}>Síla Wifi sítě: </Typography>
+          {getWifiIcon(wifiSignalStrength)}
+          <Typography>{`(${wifiSignalStrength})`}</Typography>
+        </Stack>
+        <TableRow rowTitle={"IP adresa v domácí síti"} rowValue={ipAddress} />
+        <TableRow rowTitle={"Název připojené sítě"} rowValue={wifiName} />
+        <TableRow rowTitle={"ID zařízení"} rowValue={deviceId} />
+        <TableRow rowTitle={"MAC adresa zařízení"} rowValue={MACAddress} />
+        <TableRow rowTitle={"FW aktuální"} rowValue={FWCurrent} />
+        <TableRow rowTitle={"FW budoucí"} rowValue={FWFuture} />
       </Stack>
 
       <Accordion
@@ -133,14 +167,11 @@ const WifiForm = () => {
                 changeTitle={(value) => console.log(value)}
                 placeholder="2001:4860:7:60a::ff"
                 label="IP adresa"
+                value={ipAddress}
               />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked
-                    sx={{ padding: "0px 10px 0px 0px " }}
-                  />
-                }
+              <CheckBoxButton
+                isChecked={isAutomaticConnectionChecked}
+                onChange={() => alert("implementovat")}
                 label="Automaticky připojit"
               />
               <Button>Připojit</Button>
@@ -165,3 +196,14 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+
+const TableRow = (props: { rowTitle: string; rowValue: string }) => {
+  const { rowTitle, rowValue } = props;
+
+  return (
+    <Stack direction={"row"} gap={1}>
+      <Typography fontWeight={600}>{`${rowTitle}:`}</Typography>
+      <Typography>{rowValue}</Typography>
+    </Stack>
+  );
+};

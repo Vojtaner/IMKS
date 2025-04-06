@@ -4,6 +4,7 @@ import {
   LightFormType,
   ImksState,
   FertilizeFormType,
+  ChannelForm,
 } from "../../entity/entity";
 import { initialChannelState } from "../../api/mockdata";
 import { isLightChannel } from "../../utils/typeGuards";
@@ -52,6 +53,12 @@ const channelsSlice = createSlice({
     ) {
       state[action.payload.channelId].channelSettings.title =
         action.payload.title;
+    },
+    setCompleteObject(
+      state,
+      action: PayloadAction<Record<number, ChannelForm>>
+    ) {
+      state = action.payload;
     },
     setChannelActionType(
       state,
@@ -151,6 +158,7 @@ const channelsSlice = createSlice({
 export const {
   toggleExpandChannel,
   saveChannelTitle,
+  setCompleteObject,
   setChannelActionType,
   resetChannelActionType,
   duplicatePreviousSlider,

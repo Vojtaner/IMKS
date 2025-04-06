@@ -9,10 +9,11 @@ import { ExpandMoreButton } from "./channelHeader/ExpandMoreButton";
 import { LightSettingsList } from "./channelBody/light/LightSettingsList";
 import { FertilizeSettingForm } from "./channelBody/fertilize/FertilizeSettingForm";
 import { ChannelActionTypeChoice } from "./channelBody/notSelected/ChannelActionTypeChoice";
-import { useAppSelector } from "../../store/storeRedux";
+import { selectFromAppState, useAppSelector } from "../../store/storeRedux";
 import {
   selectChannelActionType,
   selectChannelExpanded,
+  selectChannels,
   selectChannelTitle,
 } from "../../store/selectors/channelSelectors";
 import { ChannelActionType } from "../../entity/entity";
@@ -21,13 +22,22 @@ import {
   addSlider,
   resetChannelActionType,
 } from "../../store/slices/channelsSlice";
+import { useSharedWebSocket } from "../../contextAPI/webSocketContext";
+import {
+  WebSocketRequests,
+  WebSocketRequestTypes,
+} from "../../src/websocket/webSocket";
+import { useFormatWebSocketChannelsData } from "../../src/websocket/formatWebSocketData";
 
 export function ChannelAccordion(props: { channelId: number }) {
   const { channelId } = props;
+  const { sendJsonMessage } = useSharedWebSocket();
+  const { formatDateFromAppToWebSocket } = useFormatWebSocketChannelsData();
   const dispatch = useDispatch();
   const channelActionType = useAppSelector((state) =>
     selectChannelActionType(state, props.channelId)
   );
+
   const isExpanded = useAppSelector((state) =>
     selectChannelExpanded(state, props.channelId)
   );
@@ -97,6 +107,13 @@ export function ChannelAccordion(props: { channelId: number }) {
             dispatch(resetChannelActionType(props.channelId))
           }
           onAddNewSlider={() => dispatch(addSlider({ channelId }))}
+          onSaveChannel={() => {
+            const channels = selectFromAppState(selectChannels);
+            sendJsonMessage<WebSocketRequests>({
+              type: WebSocketRequestTypes.UpdateChannelSettings,
+              KanalRezimNastaveni: formatDateFromAppToWebSocket(channels),
+            });
+          }}
         />
         {channelActionType === ChannelActionType.Light && (
           <LightSettingsList

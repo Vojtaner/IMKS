@@ -6,6 +6,7 @@ export type ImksState = {
   settings: {
     language: keyof LanguagesType;
     channelColors: typeof ChanellColors;
+    wifi: WifiForm;
   };
   channels: Record<number, ChannelForm>;
 };
@@ -82,3 +83,24 @@ export type LineChartIntensityData = Record<
   number,
   { color: string; legendTitle: string; series: number[] }
 >;
+
+export type WifiForm = {
+  controllerName: string | undefined;
+  wifiName: string;
+  isAutomaticTimeChecked: boolean;
+  formDate: string;
+  password: string;
+  controllerDate: string;
+  operatingMode: "ClientMode" | "APMode";
+  accessibleWifiList: AccessibleWifiType[];
+  ipAddress: string;
+  isAutomaticConnectionChecked: boolean;
+  wifiSignalStrength: number;
+  FWCurrent: string;
+  FWFuture: string;
+  MACAddress: string;
+  isClientModeConnected: boolean;
+  deviceId: string;
+};
+
+export type AccessibleWifiType = { id: string; name: string };

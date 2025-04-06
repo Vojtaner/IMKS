@@ -120,8 +120,10 @@ const getIntensitySeries = (
   data: Record<number, SliderData[]>
 ) => {
   const lineChartData: LineChartIntensityData = {
-    2: { color: cyan[500], legendTitle: "Světlo", series: [] },
-    3: { color: "#b6cf55", legendTitle: "Hnojení", series: [] },
+    1: { color: "#b10000", legendTitle: "Světlo 1", series: [] },
+    2: { color: cyan[500], legendTitle: "Světlo 2", series: [] },
+    3: { color: "#b6cf55", legendTitle: "Světlo 3", series: [] },
+    4: { color: "#b68900", legendTitle: "Světlo 4", series: [] },
   };
 
   allTimes.forEach((time) => {

@@ -8,8 +8,11 @@ const settingsSlice = createSlice({
     changeLanguage(state, action) {
       state.language = action.payload;
     },
+    setWifiDeviceSettings(state, action) {
+      state.wifi = action.payload;
+    },
   },
 });
 
-export const { changeLanguage } = settingsSlice.actions;
+export const { changeLanguage, setWifiDeviceSettings } = settingsSlice.actions;
 export default settingsSlice.reducer;

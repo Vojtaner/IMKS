@@ -20,8 +20,8 @@ export const useAppSelector = useSelector.withTypes<AppStoreState>();
 export const createAppSelector = createSelector.withTypes<AppStoreState>();
 
 export const getAppState = () => appStore.getState();
-export const selectFromAppState = <SelectedState>(
-  selector: (state: AppStoreState) => SelectedState
-): SelectedState => {
+export const selectFromAppState = <ImksState>(
+  selector: (state: AppStoreState) => ImksState
+): ImksState => {
   return selector(getAppState());
 };

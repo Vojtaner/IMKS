@@ -1,18 +1,17 @@
 import { Stack, Button } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Delete } from "@mui/icons-material";
+import { Delete, Save } from "@mui/icons-material";
 import WaterDropIcon from "@mui/icons-material/WaterDrop";
 import { ChannelActionType } from "../../../entity/entity";
 
 const ButtonBar = (props: {
   channelId: number;
   onResetChannel: () => void;
+  onSaveChannel: () => void;
   onAddNewSlider?: () => void;
   channelActionType: ChannelActionType;
   onClearForm: () => void;
 }) => {
-  // const dispatch = useAppDispatch();
-
   return (
     <Stack
       display={"flex"}
@@ -33,6 +32,9 @@ const ButtonBar = (props: {
         onClick={() => props.onResetChannel()}
       >
         Resetovat kanál
+      </Button>
+      <Button startIcon={<Save />} onClick={() => props.onSaveChannel()}>
+        Uložit
       </Button>
       <Button onClick={() => props.onClearForm()} startIcon={<Delete />}>
         Vymazat nastavení

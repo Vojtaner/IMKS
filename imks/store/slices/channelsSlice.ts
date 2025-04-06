@@ -54,11 +54,8 @@ const channelsSlice = createSlice({
       state[action.payload.channelId].channelSettings.title =
         action.payload.title;
     },
-    setCompleteObject(
-      state,
-      action: PayloadAction<Record<number, ChannelForm>>
-    ) {
-      state = action.payload;
+    setCompleteObject(_, action: PayloadAction<Record<number, ChannelForm>>) {
+      return action.payload;
     },
     setChannelActionType(
       state,

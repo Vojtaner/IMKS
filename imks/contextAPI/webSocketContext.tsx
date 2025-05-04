@@ -1,6 +1,7 @@
-import React, { createContext, useContext } from "react";
+import React from "react";
 import useWebSocket from "react-use-websocket";
 import { WebsocketLastJsonMessageType } from "../src/websocket/webSocket";
+import { createContext } from "./contextApiFactory";
 
 const currentIpAddress = "192.168.1.9";
 const socketUrl = `ws://${currentIpAddress}:81/`;
@@ -12,9 +13,7 @@ type WebSocketContextType = {
   lastJsonMessage: WebsocketLastJsonMessageType | null;
 };
 
-const WebSocketContext = createContext<WebSocketContextType | undefined>(
-  undefined
-);
+const [useContext, ContextProvider] = createContext<WebSocketContextType>();
 
 export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -26,14 +25,14 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
   return (
-    <WebSocketContext.Provider value={{ sendJsonMessage, lastJsonMessage }}>
+    <ContextProvider value={{ sendJsonMessage, lastJsonMessage }}>
       {children}
-    </WebSocketContext.Provider>
+    </ContextProvider>
   );
 };
 
 export const useSharedWebSocket = () => {
-  const context = useContext(WebSocketContext);
+  const context = useContext();
   if (!context) {
     throw new Error(
       "useSharedWebSocket must be used within a WebSocketProvider"

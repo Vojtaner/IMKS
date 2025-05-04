@@ -1,5 +1,7 @@
-import { createContext, ReactNode, useContext } from "react";
+import { ReactNode } from "react";
 import { useSliderActions } from "../hooks/sliderHooks";
+import { createContext } from "./contextApiFactory";
+import React from "react";
 
 export type SliderActionType = {
   actions: {
@@ -12,10 +14,10 @@ export type SliderActionType = {
   data: { sliderTime?: string; sliderIntensity?: number };
 };
 
-export const SliderActionContext = createContext<SliderActionType | null>(null);
+export const [useContext, ContextProvider] = createContext<SliderActionType>();
 
 export const useSliderActionsContext = () => {
-  const sliderActions = useContext(SliderActionContext);
+  const sliderActions = useContext();
 
   if (!sliderActions) {
     throw new Error(
@@ -35,8 +37,6 @@ export const SliderActionsProvider = (props: {
   const sliderActions = useSliderActions(props.channelId, props.sliderId);
 
   return (
-    <SliderActionContext.Provider value={sliderActions}>
-      {props.children}
-    </SliderActionContext.Provider>
+    <ContextProvider value={sliderActions}>{props.children}</ContextProvider>
   );
 };

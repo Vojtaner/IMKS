@@ -18,9 +18,18 @@ export default defineConfig({
   html: {
     template: "./index.html",
   },
+
+  server: { port: 3005 },
   source: {
     entry: {
-      index: "./src/main.ts",
+      index: "./src/main.tsx",
+    },
+  },
+  resolve: { dedupe: [] },
+  performance: {
+    bundleAnalyze: {
+      analyzerMode: "server",
+      openAnalyzer: true,
     },
   },
 });

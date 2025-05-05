@@ -1,0 +1,52 @@
+{
+  "client": {
+    "enableRoutes": [
+      "Overall",
+      "Compile.WebpackLoaders",
+      "Compile.WebpackPlugins",
+      "Bundle.ModuleGraph",
+      "Bundle.BundleSize"
+    ]
+  },
+  "data": {
+    "hash": "a840e0565af373062444569b19214ee1",
+    "root": "/Users/VojtaTrainProgramming/Documents/IMKS/imks",
+    "envinfo": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/envinfo/0"
+    ],
+    "pid": 12608,
+    "errors": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/errors/0"
+    ],
+    "configs": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/configs/0"
+    ],
+    "summary": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/summary/0"
+    ],
+    "resolver": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/resolver/0"
+    ],
+    "loader": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/loader/0"
+    ],
+    "moduleGraph": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/moduleGraph/0"
+    ],
+    "chunkGraph": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/chunkGraph/0"
+    ],
+    "moduleCodeMap": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/moduleCodeMap/0"
+    ],
+    "plugin": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/plugin/0"
+    ],
+    "packageGraph": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/packageGraph/0"
+    ],
+    "otherReports": [
+      "/Users/VojtaTrainProgramming/Documents/IMKS/imks/dist/.rsdoctor/otherReports/0"
+    ]
+  }
+}
